@@ -21,8 +21,7 @@ export const sendTelegramMessage = async (orderId) => {
       throw new Error("No token found, please login");
     }
 
-    const response = await axios.post(
-      "/api/send-telegram/save-order-telegram",
+    const response = await axios.post(import.meta.env.REACT_APP_KEY + "/api/send-telegram/save-order-telegram",
       { orderId },
       {
         headers: {
