@@ -8,6 +8,8 @@ import UpdateProduct from "./components/pages/admin/product/UpdateProduct";
 import Shop from "./components/pages/Shop";
 import ProductDetail from "./components/pages/ProductDetail";
 import Cart from "./components/pages/Cart";
+import PageNotFound from "./components/page_not_found/PageNotFound";
+
 // import SendTelegram from "./components/pages/user/SendTelegram"
 //react-toastify
 import { ToastContainer } from "react-toastify";
@@ -38,6 +40,7 @@ import RootLayoutUser from "./components/layout/RootLayoutUser";
 import { currentUser } from "./components/functions/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
+
 
 
 function App() {
@@ -108,6 +111,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="*" element={<PageNotFound />} />
         <Route path="/product-detail/:id" element={<ProductDetail />} />
         {/* <Route path="/order" element={<SendTelegram />} /> */}
 
