@@ -139,7 +139,7 @@ const Shop = () => {
             <h1 className="text-lg flex sm:text-xl font-semibold text-[#374151]">
               All<span className="border-b-2 sm:border-b-3 border-pink-700"> Products</span>
             </h1>
-            <div className="w-full sm:w-10/12 z-40">
+            <div className="w-full sm:w-10/12 z-10">
               <FilterProducts
                 fetchDataFilter={fetchDataFilter}
                 loadData={loadData}
