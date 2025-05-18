@@ -32,7 +32,7 @@ const BastSeller = () => {
   return (
     <div>
       <div className="w-full">
-        <div className="py-10">
+        <div className="lg:py-10 py-5">
           <h1 className="text-xl font-semibold text-[#374151]">
             Best<span className="border-b-3 border-pink-700"> Seller</span>
           </h1>
@@ -51,7 +51,7 @@ const BastSeller = () => {
                 ease: [0.25, 0.25, 0.25, 0.75],
                 delay: 0.2,
               }}
-              className="grid grid-cols-5 gap-4 pb-10"
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 pb-10"
             >
               {products.map((item) => (
                 <ProductCard product={item} key={item._id} />

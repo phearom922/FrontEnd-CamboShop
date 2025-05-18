@@ -2,14 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { toast } from "react-toastify";
-// ============Add to Cart===================================
 import { useSelector, useDispatch } from "react-redux";
-//Lodash
 import _ from "lodash";
-// ============Add to Cart===================================
-
-
-
 
 const HeroCard = ({ product, index }) => {
   const dispatch = useDispatch();
@@ -43,42 +37,37 @@ const HeroCard = ({ product, index }) => {
     });
   };
 
-
-
-
   return (
-    <div className="flex grid-cols-2 items-center justify-center py-8">
-      <div className="flex h-full w-7xl items-center justify-center">
+    <div className="flex flex-col lg:flex-row items-center justify-center py-6 sm:py-8 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div className="w-full lg:w-1/3 sm:lg:w-1/3 flex items-center justify-center mb-6 lg:mb-0">
         <img
           src={images[0]?.url}
           alt="heroImage"
-          className="h-96 object-cover"
+          className="h-94 sm:h-full sm:w-2/3 lg:h-96 w-2/3 lg:w-full sm:object-cover object-cover rounded-lg"
         />
       </div>
 
-      <div className="w-5xl space-y-4 py-2">
-        <h1 className="text-gray-500">
+      <div className="w-full lg:w-1/2 space-y-4 py-4 px-4">
+        <h1 className="text-gray-500 text-sm sm:text-base">
           # {index + 1}{" "}
-          <span className="bg-pink-500 px-1 text-white">New Product</span>
+          <span className="bg-pink-500 px-1 text-white text-xs sm:text-sm">New Product</span>
         </h1>
-        <h1 className="text-6xl font-semibold">{title}</h1>
-        <p className="min-h-24 text-gray-500">{description}</p>
-        <div>
-          <div className="flex justify-between items-center">
-            <button
-              onClick={handleAddToCart}
-              id="button"
-              className="relative cursor-pointer rounded bg-indigo-700 p-4 font-semibold text-white"
-            >
-              Add to Cart
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold">{title}</h1>
+        <p className="min-h-[4rem] sm:min-h-[5rem] text-gray-500 text-sm sm:text-base">{description}</p>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <button
+            onClick={handleAddToCart}
+            id="button"
+            className="w-full sm:w-auto relative cursor-pointer rounded bg-indigo-700 px-6 py-4 sm:px-6 sm:py-3 font-semibold text-white text-sm sm:text-base"
+          >
+            Add to Cart
+          </button>
+          <Link to={"/product-detail/" + _id}>
+            <button className="w-full sm:w-auto flex cursor-pointer items-center justify-center gap-2 font-light hover:font-semibold text-sm sm:text-base">
+              View Detail
+              <FaLongArrowAltRight />
             </button>
-            <Link to={"/product-detail/" + _id}>
-              <button className="flex cursor-pointer items-center justify-center gap-2 font-light hover:font-semibold">
-                View Detail
-                <FaLongArrowAltRight />
-              </button>
-            </Link>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

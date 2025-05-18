@@ -12,27 +12,23 @@ const Shop = () => {
   const [product, setProduct] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10); // 10 การ์ดต่อหน้า
+  const [productsPerPage] = useState(10);
 
   const { search } = useSelector((state) => ({ ...state }));
   const { text } = search;
 
-  // คำนวณจำนวนหน้าทั้งหมด
   const totalPages = Math.ceil(product.length / productsPerPage);
-
-  // คำนวณสินค้าที่จะแสดงในหน้าปัจจุบัน
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = product.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  // Load all data
   useEffect(() => {
     loadData();
-  }, []); // Run only once when the component mounts
+  }, []);
 
   const loadData = () => {
     setLoading(true);
-    productList() // ถ้า backend รองรับ pagination อาจส่ง page และ limit
+    productList()
       .then((res) => {
         setTimeout(() => {
           setLoading(false);
@@ -45,7 +41,6 @@ const Shop = () => {
       });
   };
 
-  // Load data on user filter
   useEffect(() => {
     const delay = setTimeout(() => {
       if (text) {
@@ -57,21 +52,18 @@ const Shop = () => {
     return () => clearTimeout(delay);
   }, [text]);
 
-  // Search Filter
   const fetchDataFilter = (arg) => {
     searchFilters(arg).then((res) => {
       setProduct(res.data);
-      setCurrentPage(1); // รีเซ็ตหน้าเมื่อมีการกรองใหม่
+      setCurrentPage(1);
     });
   };
 
-  // ฟังก์ชันเปลี่ยนหน้า
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: "smooth" }); // เลื่อนไปด้านบน
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ฟังก์ชันสำหรับ Previous
   const handlePrevious = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -79,7 +71,6 @@ const Shop = () => {
     }
   };
 
-  // ฟังก์ชันสำหรับ Next
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -87,25 +78,22 @@ const Shop = () => {
     }
   };
 
-  // ฟังก์ชันสำหรับ Last Page
   const handleLastPage = () => {
     setCurrentPage(totalPages);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // สร้างตัวเลขหน้า (จำกัด 5 หน้าแรก)
   const renderPageNumbers = () => {
     const pageNumbers = [];
     const maxPagesToShow = 5;
 
-    // ถ้ามีหน้าทั้งหมดน้อยกว่า 5 หน้า แสดงทุกหน้า
     if (totalPages <= maxPagesToShow) {
       for (let i = 1; i <= totalPages; i++) {
         pageNumbers.push(
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`px-3 py-1 rounded ${
+            className={`px-3 py-1 rounded text-sm sm:text-base ${
               currentPage === i
                 ? "bg-pink-700 text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -116,13 +104,12 @@ const Shop = () => {
         );
       }
     } else {
-      // แสดง 5 หน้าแรก และเพิ่ม "..." ถ้ามีหน้าต่อไป
       for (let i = 1; i <= Math.min(maxPagesToShow, totalPages); i++) {
         pageNumbers.push(
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`px-3 py-1 rounded ${
+            className={`px-3 py-1 rounded text-sm sm:text-base ${
               currentPage === i
                 ? "bg-pink-700 text-white"
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -143,19 +130,16 @@ const Shop = () => {
   return (
     <>
       <div className="relative mx-auto mt-14 max-w-7xl px-4 sm:px-6 lg:px-8 min-h-screen">
-        <div className={`${loading ? "hidden" : "absolute z-20 block"} `}>
+        <div className={`${loading ? "hidden" : "absolute z-20 block"}`}>
           {product?.length < 1 && <NoProductNotFound />}
         </div>
 
-        {/* ==============Search and Filter Product ==========*/}
-
-        {/* ==============all product card ==========*/}
         <div className="w-full">
-          <div className="flex items-center justify-between py-10">
-            <h1 className="text-xl font-semibold text-[#374151]">
-              All<span className="border-b-3 border-pink-700"> Products</span>
+          <div className="flex flex-row sm:flex-row items-center justify-between py-6  sm:py-10 gap-4">
+            <h1 className="text-lg flex sm:text-xl font-semibold text-[#374151]">
+              All<span className="border-b-2 sm:border-b-3 border-pink-700"> Products</span>
             </h1>
-            <div className="z-30 w-10/12">
+            <div className="w-full sm:w-10/12 z-40">
               <FilterProducts
                 fetchDataFilter={fetchDataFilter}
                 loadData={loadData}
@@ -163,7 +147,6 @@ const Shop = () => {
             </div>
           </div>
 
-          {/*============ Product Card================*/}
           <div>
             {loading ? (
               <LoadingCard count={productsPerPage} />
@@ -176,7 +159,7 @@ const Shop = () => {
                   ease: [0.25, 0.25, 0.25, 0.75],
                   delay: 0.2,
                 }}
-                className="grid grid-cols-5 gap-4 pb-10"
+                className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 pb-10"
               >
                 {currentProducts.map((item) => (
                   <ProductCard product={item} key={item._id} />
@@ -185,13 +168,12 @@ const Shop = () => {
             )}
           </div>
 
-          {/*============ Pagination Bar ================*/}
           {totalPages > 1 && (
-            <div className="flex justify-end items-center space-x-2 py-6">
+            <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2 py-6">
               <button
                 onClick={handlePrevious}
                 disabled={currentPage === 1}
-                className={`px-4 py-1 rounded ${
+                className={`px-3 py-1 rounded text-sm sm:text-base ${
                   currentPage === 1
                     ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -205,7 +187,7 @@ const Shop = () => {
               <button
                 onClick={handleLastPage}
                 disabled={currentPage === totalPages}
-                className={`px-4 py-1 rounded ${
+                className={`px-3 py-1 rounded text-sm sm:text-base ${
                   currentPage === totalPages
                     ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -217,7 +199,7 @@ const Shop = () => {
               <button
                 onClick={handleNext}
                 disabled={currentPage === totalPages}
-                className={`px-4 py-1 rounded ${
+                className={`px-3 py-1 rounded text-sm sm:text-base ${
                   currentPage === totalPages
                     ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"

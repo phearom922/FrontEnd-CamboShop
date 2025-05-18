@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Loading from "../card/Loading";
@@ -119,9 +117,9 @@ const ProductDetailCard = ({ product }) => {
       <div className="flex mb-32 flex-col">
         <div className="flex-1">
           {product ? (
-            <div className="grid grid-cols-2 justify-center">
+            <div className="grid grid-cols gap-8 lg:gap-0 justify-center lg:grid-cols-2 sm:grid-cols-1">
               <div className="flex w-full grid-cols-1 justify-center">
-                <div className="flex h-96 w-96 flex-col">
+                <div className="flex lg:h-96 lg:w-96 flex-col">
                   <img
                     src={mainImage || (images && images[0]?.url)}
                     alt="ImageDetail"
@@ -143,7 +141,7 @@ const ProductDetailCard = ({ product }) => {
               </div>
 
               <div className="flex flex-col justify-between">
-                <div className="space-y-2">
+                <div className="space-y-2 ">
                   <h1 className="text-4xl font-semibold text-[#1f2937e6]">
                     {title}
                   </h1>
