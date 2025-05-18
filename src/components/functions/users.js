@@ -92,7 +92,6 @@ export const saveAddress = async (token, address) => {
   );
 };
 
-
 export const saveOrder = async (token) => {
   return await axios.post(
     import.meta.env.REACT_APP_KEY + "/user/order",
@@ -104,9 +103,6 @@ export const saveOrder = async (token) => {
     }
   );
 };
-
-
-
 
 export const getOrders = async (token) => {
   return await axios.get(import.meta.env.REACT_APP_KEY + "/user/orders", {
@@ -146,4 +142,42 @@ export const removeWishlist = async (token, productId) => {
       },
     }
   );
+};
+
+export const updateUsername = async (token, data) => {
+  return await axios.post(
+    `${import.meta.env.REACT_APP_KEY}/update-username`,
+    data,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+};
+
+export const getUserProfile = async (token) => {
+  return await axios.get(import.meta.env.REACT_APP_KEY + "/profile", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+//Upload Profile Image
+export const uploadProfilePicture = async (token, formData) => {
+  return await axios.post(
+    `${import.meta.env.REACT_APP_KEY}/upload-profile-picture`,
+    formData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+};
+
+export const updateAddress = async (token, data) => {
+  return await axios.post(`${import.meta.env.REACT_APP_KEY}/update-address`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
