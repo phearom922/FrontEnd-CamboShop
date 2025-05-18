@@ -38,16 +38,16 @@ const HeroCard = ({ product, index }) => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-center py-6 sm:py-8 px-4 sm:px-6 max-w-7xl mx-auto">
+    <div className="flex flex-col lg:flex-row items-center justify-center py-6 sm:py-8 lg:px-4 sm:px-6 max-w-7xl mx-auto">
       <div className="w-full lg:w-1/3 sm:lg:w-1/3 flex items-center justify-center mb-6 lg:mb-0">
         <img
           src={images[0]?.url}
           alt="heroImage"
-          className="h-94 sm:h-full sm:w-2/3 lg:h-96 w-2/3 lg:w-full sm:object-cover object-cover rounded-lg"
+          className="h-full sm:h-full sm:w-2/3 lg:h-96 w-2/3 lg:w-full sm:object-cover object-cover rounded-lg"
         />
       </div>
 
-      <div className="w-full lg:w-1/2 space-y-4 py-4 px-4">
+      <div className="w-full lg:w-1/2 space-y-4 py-4 lg:px-4">
         <h1 className="text-gray-500 text-sm sm:text-base">
           # {index + 1}{" "}
           <span className="bg-pink-500 px-1 text-white text-xs sm:text-sm">New Product</span>

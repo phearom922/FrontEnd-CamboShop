@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlinePhotoCamera } from "react-icons/md";
+
+//ant design
+import { Modal } from "antd";
 // Functions
-import { getUserProfile, updateAddress, uploadProfilePicture } from "../../functions/users";
+import { getUserProfile, updateAddress, uploadProfilePicture, resetPassword } from "../../functions/users";
 
 const Profile = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -24,6 +27,36 @@ const Profile = () => {
   });
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [values, setValues] = useState({
+    id: "",
+    password: "",
+  });
+
+  const showModal = (id) => {
+    setIsModalOpen(true);
+    setValues({ ...values, id: id });
+  };
+
+  const handleChangePassword = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+    resetPassword(user.token, values.id, { values })
+      .then((res) => {
+        toast.success("Password has been changed successfully");
+        loadData(user.token);
+      })
+      .catch((err) => { });
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
   useEffect(() => {
     loadProfile();
@@ -127,13 +160,13 @@ const Profile = () => {
             <hr className="border-gray-200" />
             <p><strong>Date Join:</strong> {profile.createdAt ? new Date(profile.createdAt).toLocaleDateString() : "16 May, 2025"}</p>
             <p><strong>Status:</strong> <span className="text-green-600">Active</span></p>
-            <p><strong>Phone Number:</strong> {profile.phoneNumber || "N/A"}</p>
+
             <p><strong>Email:</strong> {profile.email || "user@telegram.com"}</p>
             <p><strong>Telegram Username:</strong> @{profile.telegramUsername || "N/A"}</p>
             <p><strong>Last Login:</strong> {profile.lastLogin || "16 May, 2025"}</p>
             <div className="mt-8 space-x-2 justify-between flex">
               <button
-                onClick={() => navigate("/change-password")}
+                onClick={() => showModal(user._id)}
                 className="bg-yellow-500 text-white py-2 px-3 rounded hover:bg-yellow-600"
               >
                 Change Password
@@ -152,8 +185,8 @@ const Profile = () => {
         {/* Right Panel: Address */}
         <div className="w-2/3  border border-gray-200 rounded-lg">
           <div className="bg-blue-800 text-white p-4 rounded-t-lg">
-            <h2 className="text-xl font-semibold">Ron Phearom</h2>
-            <p>+66 10255585</p>
+            <h2 className="text-xl font-semibold">{address?.fullName}</h2>
+            <p>+855 {address?.phoneNumber}</p>
             <p>phnom penh, Str.2004,</p>
           </div>
           <div className="p-4">
@@ -237,16 +270,14 @@ const Profile = () => {
             ) : (
               <div className="flex flex-col justify-between">
                 <div className="flex-col justify-between flex gap-3.5">
-                  <p><strong>Full Name:</strong> {address.fullName || "Ron Phearom"}</p>
-                  <p><strong>Phone Number:</strong> {address.phoneNumber || "+66 10255585"}</p>
-                  <p><strong>Pincode:</strong> {address.pincode || "11213"}</p>
-                  <p><strong>Area:</strong> {address.area || "Str.2004"}</p>
-                  <p><strong>City:</strong> {address.city || "Phnom Penh"}</p>
-                  <p><strong>State:</strong> {address.state || "Phnom Penh"}</p>
+                  <p><strong>Full Name:</strong> {address.fullName || "N/A"}</p>
+                  <p><strong>Phone Number:</strong> 0{address.phoneNumber || "N/A"}</p>
+                  <p><strong>Pincode:</strong> {address.pincode || "N/A"}</p>
+                  <p><strong>Area:</strong> {address.area || "N/A"}</p>
+                  <p><strong>City:</strong> {address.city || "N/A"}</p>
+                  <p><strong>State:</strong> {address.state || "N/A"}</p>
                   <p><strong>Telegram Username:</strong> @{address.usernameTelegram || "N/A"}</p>
-                  <a href="https://goo.gl/maps/vDjzT1cNdNQ9JJ9" target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                    Google Map: https://goo.gl/maps/vDjzT1cNdNQ9JJ9
-                  </a>
+
                 </div>
                 <div>
                   <button
@@ -262,6 +293,23 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <Modal
+        title="Reset Password"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <div className="flex w-70 flex-col">
+          {/* <label>New Password :</label> */}
+          <input
+            onChange={handleChangePassword}
+            type="text"
+            name="password"
+            placeholder="New Password"
+            className="rounded bg-gray-100 px-4 py-2 focus:outline-none"
+          />
+        </div>
+      </Modal>
     </div>
   );
 };
