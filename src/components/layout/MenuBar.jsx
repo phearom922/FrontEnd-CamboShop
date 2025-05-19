@@ -1,180 +1,210 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import brandLogo from "../../../public/Brand_Logo.png";
 import { Link, useNavigate, NavLink } from "react-router-dom";
 import Search from "../shop/Search";
 import { LogOut } from "lucide-react";
-//Ant
 import { Avatar, Badge, Space } from "antd";
 import { toast } from "react-toastify";
-//Icon
-import { FaUserCircle } from "react-icons/fa";
-import { IoMdArrowDropdown } from "react-icons/io";
-import { AiOutlineLogout } from "react-icons/ai";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import UserDropdown from "./UserDropdown";
-
-//Redux
 import { useSelector, useDispatch } from "react-redux";
-
+import { getUserProfile } from "../functions/users";
 
 const MenuBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const menuItem = [
-    {
-      path: "/",
-      name: "Home",
-    },
-    {
-      path: "/shop",
-      name: "Shop",
-    },
-    {
-      path: "/contact",
-      name: "Contact",
-    },
-    // {
-    //   path: "/order",
-    //   name: "Telegram",
-    // },
-    // {
-    //   path: "/cart",
-    //   name: (
-    //     <Badge count={cart.length} size="middle" offset={[9,0]}>
-    //       <IoCartOutline className="text-xl" />
-    //     </Badge>
-    //   ),
-    // },
+    { path: "/", name: "Home" },
+    { path: "/shop", name: "Shop" },
+    { path: "/contact", name: "Contact" },
   ];
-// កូដដើ==============
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const { user, cart } = useSelector((state) => ({ ...state }));
 
-  // const handleLogout = () => {
-  //   dispatch({
-  //     type: "LOGOUT",
-  //     payload: null,
-  //   });
-  //   navigate("/");
-  // };
-  
+  const { user, cart } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const { user, cart } = useSelector((state) => ({ ...state }));
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-  
-    const handleLogout = () => {
-      dispatch({ type: "LOGOUT", payload: null });
-      toast.success("Logged out successfully!");
-      navigate("/");
-    };
+  // ดึงข้อมูลโปรไฟล์เมื่อ user มี token
+  useEffect(() => {
+    if (user?.token && !user?.profilePicture) {
+      getUserProfile(user.token)
+        .then((res) => {
+          dispatch({
+            type: "UPDATE_USER",
+            payload: {
+              ...user,
+              profilePicture: res.data.profilePicture || null,
+            },
+          });
+        })
+        .catch((err) => {
+          console.error("Failed to load profile:", err);
+          toast.error("Failed to load profile data");
+        });
+    }
+  }, [user, dispatch]);
 
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT", payload: null });
+    toast.success("Logged out successfully!");
+    navigate("/");
+    setIsOpen(false);
+  };
+
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className="fixed top-0 z-40 w-full bg-white px-4 py-2 shadow">
-      <ul
-        className={
-          user?.role === "admin" ? "" : "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        }
-      >
-        <li className="flex justify-between">
-          <div className="flex items-center justify-center space-x-2">
-            <Link to="/" className="font-semibold text-gray-700" href="/">
-              <img className="w-36 pl-2" src={brandLogo} alt="logo" />
+    <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex items-center">
+            <Link to="/">
+              <img className="w-28 sm:w-36" src={brandLogo} alt="logo" />
             </Link>
           </div>
 
-          {/* =======Navbar========= */}
-          <div id="menu" className="flex items-center justify-center gap-1">
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-2">
             {menuItem.map((item, index) => (
               <NavLink
                 to={item.path}
                 key={index}
-                className="rounded-full px-3 py-2 text-sm transition-all duration-200 hover:bg-gray-100 hover:text-indigo-600"
+                className="rounded-full px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-indigo-600 transition-all duration-200"
               >
                 {item.name}
               </NavLink>
             ))}
             <Link to="/cart" className="flex rounded-xl bg-gray-200 p-2">
-              <Badge count={cart.length} size="middle" offset={[5, 0]}>
-                <IoCartOutline size={19} />
+              <Badge count={cart.length} size="small" offset={[5, 0]}>
+                <IoCartOutline size={20} />
               </Badge>
             </Link>
-          </div>
-          {/* =======Navbar========= */}
-
-          {/* ================not login================= */}
-
-          <div className="flex space-x-2">
-            <div>
-              {/* <FilterProducts /> */}
-              <Search />
-            </div>
-            {!user.token  && (
-              <div className="space-x-2 py-2">
+            <Search isOpen={isOpen}/>
+            {!user?.token ? (
+              <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="rounded-sm px-5 py-2 font-semibold text-gray-700 transition-all hover:bg-indigo-100 hover:shadow"
-                  href="/"
+                  className="rounded-sm px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-indigo-100 hover:shadow transition-all"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="rounded-sm px-10 py-2 font-semibold ring-1 ring-gray-400 transition-all hover:border-0 hover:bg-indigo-700 hover:text-white"
-                  href="/"
+                  className="rounded-sm px-4 py-2 text-sm font-semibold ring-1 ring-gray-400 hover:bg-indigo-700 hover:text-white hover:ring-0 transition-all"
                 >
                   Sign Up
                 </Link>
               </div>
-            )}
-            <div>
-              {user?.role === "admin" ? (
-                <>
-                  <div
-                    className="group relative flex cursor-pointer items-center  rounded px-8 py-2 font-medium transition-all duration-300 "
-                    href="/"
-                  >
-                    <FaUserCircle className="mx-1 rounded-full p-[1px] text-2xl text-gray-700 ring-1" />{" "}
-                    {user.username}
-                    <IoMdArrowDropdown />
-                    <div className="absolute top-[100%] right-10 w-full rounded-md border hidden border-gray-100  bg-white leading-none shadow-xl transition-all group-hover:block">
-                      {/* <Link to="/admin/index">
-
-                        <div className="py-1 text-center text-sm text-gray-700">
-
-                          Username : {user.username} <br />
-                          <p className="text-xs font-light text-green-600">
-                            {user.role}
-                          </p>
-                        </div>
-                      </Link> */}
-                      <Link to="/admin/index">
-                        <div className="text-sm text-center rounded-md hover:bg-indigo-100 hover:text-indigo-600 m-2  py-2 ">
-                          My Dashboard
-                        </div>
-                      </Link>
-
-                      <button
-                        onClick={handleLogout}
-                        className="flex w-full cursor-pointer items-center justify-center gap-2 border-t border-gray-300 py-4  hover:bg-gray-100"
-                      >
-                        <LogOut className="w-4 h-4" />Logout
-                      </button>
+            ) : user?.role === "admin" ? (
+              <div className="group relative flex items-center cursor-pointer rounded px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 transition-all duration-300">
+                <img
+                  src={user?.profilePicture || "https://avatar.iran.liara.run/public"}
+                  alt="Profile"
+                  className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover mr-1"
+                />
+                <span className="text-sm">{user.username}</span>
+                <IoMdArrowDropdown />
+                <div className="absolute top-full right-0 mt-2 w-48 rounded-md border border-gray-100 bg-white shadow-xl hidden group-hover:block">
+                  <Link to="/admin/index">
+                    <div className="text-sm text-center rounded-md hover:bg-indigo-100 hover:text-indigo-600 m-2 py-2">
+                      My Dashboard
                     </div>
-                  </div>
-                </>
-              ) : user?.role === "user" ? (
-                <>
-                  <UserDropdown user={user} logout={handleLogout} />
-                </>
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center justify-center gap-2 border-t border-gray-300 py-3 text-sm hover:bg-gray-100"
+                  >
+                    <LogOut className="w-4 h-4" /> Logout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <UserDropdown user={user} logout={handleLogout} mobile={false} toggleMenu={toggleMenu} />
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button onClick={toggleMenu} className="text-gray-700 hover:text-indigo-600">
+              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <div className="flex flex-col px-4 py-2 space-y-2">
+              <div className="py-2">
+                <Search />
+              </div>
+              {menuItem.map((item, index) => (
+                <NavLink
+                  to={item.path}
+                  key={index}
+                  onClick={toggleMenu}
+                  className="text-gray-700 hover:bg-gray-100 hover:text-indigo-600 px-3 py-2 text-base font-medium rounded-md"
+                >
+                  {item.name}
+                </NavLink>
+              ))}
+              <Link
+                to="/cart"
+                onClick={toggleMenu}
+                className="flex items-center gap-2 text-gray-700 hover:bg-gray-100 px-3 py-2 text-base rounded-md"
+              >
+                <Badge count={cart.length} size="small" offset={[5, 0]}>
+                  <IoCartOutline size={20} />
+                </Badge>
+                Cart
+              </Link>
+              
+              {!user?.token ? (
+                <div className="flex flex-col gap-2">
+                  <Link
+                    to="/login"
+                    onClick={toggleMenu}
+                    className="text-gray-700 hover:bg-indigo-100 px-3 py-2 text-base font-medium rounded-md"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={toggleMenu}
+                    className="text-gray-700 hover:bg-indigo-700 hover:text-white px-3 py-2 text-base font-medium rounded-md ring-1 ring-gray-400 hover:ring-0"
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              ) : user?.role === "admin" ? (
+                <div className="flex flex-col gap-2">
+                  <Link
+                    to="/admin/index"
+                    onClick={toggleMenu}
+                    className="flex items-center gap-2 text-gray-700 hover:bg-indigo-100 px-3 py-2 text-base font-medium rounded-md"
+                  >
+                    <img
+                      src={user?.profilePicture || "https://avatar.iran.liara.run/public"}
+                      alt="Profile"
+                      className="w-6 h-6 rounded-full object-cover"
+                    />
+                    My Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 text-gray-700 hover:bg-gray-100 px-3 py-2 text-base font-medium rounded-md"
+                  >
+                    <LogOut className="w-4 h-4" /> Logout
+                  </button>
+                </div>
               ) : (
-                ""
+                <UserDropdown user={user} logout={handleLogout} mobile={true} toggleMenu={toggleMenu} />
               )}
             </div>
           </div>
-        </li>
-      </ul>
-    </div>
+        )}
+      </div>
+    </nav>
   );
 };
 

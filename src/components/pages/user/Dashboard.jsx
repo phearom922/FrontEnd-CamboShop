@@ -19,9 +19,6 @@ export default function Dashboard() {
       setOrders(res.data);
     });
   };
-
-
-console.log(user)
   return (
     <div>
       <OrdersDashboard orders={orders} />

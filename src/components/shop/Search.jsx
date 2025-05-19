@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 //Redux
 import { useSelector, useDispatch } from "react-redux";
 
-const Search = () => {
+const Search = ({isOpen}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,6 +25,7 @@ const Search = () => {
     navigate("/shop?" + text);
   };
 
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -39,7 +40,7 @@ const Search = () => {
               onChange={handleChange}
               type="text"
               placeholder="Search products..."
-              className="w-full rounded-full border border-gray-200 py-2 pr-4 pl-10 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className={`w-full ${isOpen == undefined ? " rounded-md" : "rounded-full"} border border-gray-200 py-2 pr-4 pl-10 focus:ring-2 focus:ring-blue-500 focus:outline-none`}
             />
           </div>
         </div>
