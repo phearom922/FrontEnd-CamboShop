@@ -16,7 +16,7 @@ const MenuBar = () => {
   const menuItem = [
     { path: "/", name: "Home" },
     { path: "/shop", name: "Shop" },
-    { path: "/contact", name: "Contact" },
+    { path: "/contact", name: "Contact" }
   ];
 
   const { user, cart } = useSelector((state) => ({ ...state }));

@@ -1,11 +1,10 @@
-import React from "react";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { TfiFaceSad } from "react-icons/tfi";
 
 const NoProductNotFound = () => {
   return (
-    <div className="flex h-screen w-7xl items-center justify-center bg-white">
-      <div className="flex flex-col items-center justify-center pb-20 text-neutral-400">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col items-center justify-center h-screen pb-20 text-neutral-400">
         <div className="relative">
           <HiOutlineShoppingBag size={200} />
           <div className="absolute left-20 top-26">

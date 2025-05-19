@@ -82,7 +82,7 @@ const FilterProducts = ({ fetchDataFilter, loadData }) => {
         }`}
       >
         {/* Price Range */}
-        <div>
+        <div className=" w-full flex flex-col mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h3 className="mb-5 text-sm font-medium text-gray-700">
             Price Range
           </h3>
@@ -123,7 +123,7 @@ const FilterProducts = ({ fetchDataFilter, loadData }) => {
                   checked={categorySelect.includes(item._id)}
                   onChange={handleCheck}
                 >
-                  {item.name}
+                  <span className="text-xs">{item.name}</span>
                 </Checkbox>
               ))}
             </div>

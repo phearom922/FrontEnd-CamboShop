@@ -93,11 +93,10 @@ const Shop = () => {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`px-3 py-1 rounded text-sm sm:text-base ${
-              currentPage === i
-                ? "bg-pink-700 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+            className={`px-3 py-1 rounded text-sm sm:text-base ${currentPage === i
+              ? "bg-pink-700 text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
           >
             {i}
           </button>
@@ -109,11 +108,10 @@ const Shop = () => {
           <button
             key={i}
             onClick={() => handlePageChange(i)}
-            className={`px-3 py-1 rounded text-sm sm:text-base ${
-              currentPage === i
-                ? "bg-pink-700 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
+            className={`px-3 py-1 rounded text-sm sm:text-base ${currentPage === i
+              ? "bg-pink-700 text-white"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
           >
             {i}
           </button>
@@ -130,10 +128,6 @@ const Shop = () => {
   return (
     <>
       <div className="relative mx-auto mt-14 max-w-7xl px-4 sm:px-6 lg:px-8 min-h-screen">
-        <div className={`${loading ? "hidden" : "absolute z-20 block"}`}>
-          {product?.length < 1 && <NoProductNotFound />}
-        </div>
-
         <div className="w-full">
           <div className="flex flex-row sm:flex-row items-center justify-between py-6  sm:py-10 gap-4">
             <h1 className="text-lg flex sm:text-xl font-semibold text-[#374151]">
@@ -145,6 +139,9 @@ const Shop = () => {
                 loadData={loadData}
               />
             </div>
+          </div>
+          <div className={`${loading ? "hidden" : "z-10 block"}`}>
+            {product?.length < 1 && <NoProductNotFound />}
           </div>
 
           <div>
@@ -173,11 +170,10 @@ const Shop = () => {
               <button
                 onClick={handlePrevious}
                 disabled={currentPage === 1}
-                className={`px-3 py-1 rounded text-sm sm:text-base ${
-                  currentPage === 1
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
+                className={`px-3 py-1 rounded text-sm sm:text-base ${currentPage === 1
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
               >
                 Previous
               </button>
@@ -187,11 +183,10 @@ const Shop = () => {
               <button
                 onClick={handleLastPage}
                 disabled={currentPage === totalPages}
-                className={`px-3 py-1 rounded text-sm sm:text-base ${
-                  currentPage === totalPages
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
+                className={`px-3 py-1 rounded text-sm sm:text-base ${currentPage === totalPages
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
               >
                 Last Page
               </button>
@@ -199,11 +194,10 @@ const Shop = () => {
               <button
                 onClick={handleNext}
                 disabled={currentPage === totalPages}
-                className={`px-3 py-1 rounded text-sm sm:text-base ${
-                  currentPage === totalPages
-                    ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
+                className={`px-3 py-1 rounded text-sm sm:text-base ${currentPage === totalPages
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
               >
                 Next
               </button>

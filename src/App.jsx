@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 import Loading from "./components/card/Loading";
 
+
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -86,7 +87,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen  flex flex-col">
       <ToastContainer
         theme="colored"
         position="top-right"

@@ -1,8 +1,4 @@
-import React from "react";
-import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { TfiFaceSad } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
-
 
 const PageNotFound = () => {
 
