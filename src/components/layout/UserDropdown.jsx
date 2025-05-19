@@ -4,25 +4,25 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { LogOut } from "lucide-react";
 
-const UserDropdown = ({ user, logout, mobile, toggleMenu }) => {
+const UserDropdown = ({ user, logout, mobile, toggleMenu, isOpen }) => {
   const profilePicture = user?.profilePicture || "https://avatar.iran.liara.run/public";
 
   if (mobile) {
     return (
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 mb-4">
 
         <Link
           to="/user/index"
           onClick={toggleMenu}
-          className="text-gray-700 hover:bg-indigo-100 px-3 py-2 text-base font-medium rounded-md"
+          className="text-gray-700 group hover:bg-indigo-100 px-3 py-2 text-base font-medium rounded-md"
         >
           <div className="flex gap-2 items-center">
             <img
               src={profilePicture}
               alt="Profile"
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-12 h-12 rounded-full border-gray-400 object-cover border p-0.5"
             />
-            Profile
+            {isOpen ? <span className=" font-semibold group-hover:text-indigo-600">{user.username}</span> : "Profile"}
           </div>
         </Link>
 
@@ -31,16 +31,16 @@ const UserDropdown = ({ user, logout, mobile, toggleMenu }) => {
             logout();
             toggleMenu();
           }}
-          className="flex items-center gap-2 text-gray-700 hover:bg-gray-100 px-3 py-2 text-base font-medium rounded-md"
+          className="flex items-center gap-2 group text-gray-700 hover:bg-gray-100 px-3 py-2 text-base font-medium rounded-md"
         >
-          <LogOut className="w-4 h-4" /> Logout
+          <LogOut className="w-4 h-4 group-hover:text-red-600" /> <span className="group-hover:text-red-600">Logout</span>
         </button>
       </div>
     );
   }
 
   return (
-    <div className="group relative flex items-center cursor-pointer rounded px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 transition-all duration-300">
+    <div className="group relative flex items-center cursor-pointer rounded-md px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 transition-all duration-300">
 
       <img
         src={profilePicture}

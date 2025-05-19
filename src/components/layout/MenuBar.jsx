@@ -160,7 +160,7 @@ const MenuBar = () => {
               </Link>
               
               {!user?.token ? (
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 mb-4">
                   <Link
                     to="/login"
                     onClick={toggleMenu}
@@ -171,7 +171,7 @@ const MenuBar = () => {
                   <Link
                     to="/register"
                     onClick={toggleMenu}
-                    className="text-gray-700 hover:bg-indigo-700 hover:text-white px-3 py-2 text-base font-medium rounded-md ring-1 ring-gray-400 hover:ring-0"
+                    className="text-gray-700  hover:bg-indigo-700 hover:text-white px-3 py-2 text-base font-medium rounded-md ring-1 ring-gray-400 hover:ring-0"
                   >
                     Sign Up
                   </Link>
@@ -198,7 +198,7 @@ const MenuBar = () => {
                   </button>
                 </div>
               ) : (
-                <UserDropdown user={user} logout={handleLogout} mobile={true} toggleMenu={toggleMenu} />
+                <UserDropdown isOpen={isOpen} user={user} logout={handleLogout} mobile={true} toggleMenu={toggleMenu} />
               )}
             </div>
           </div>
