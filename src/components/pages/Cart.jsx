@@ -50,11 +50,12 @@ const Cart = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col">
-      <div className="mx-auto grid min-w-7xl grid-cols-3 gap-4 px-4 sm:px-6 lg:px-8">
-        <div className="col-span-2 mt-16">
+    <div className="flex h-screen flex-col max-w-7xl">
+
+      <div className="mx-auto flex flex-col w-full gap-5 px-4 sm:px-6 lg:px-6   sm:flex-col lg:flex-row">
+        <div className="lg:w-2/3 mt-13  sm:w-full">
           {/* Title Your Card */}
-          <div className="mx-5 flex items-center justify-between border-b-1 border-b-neutral-300 py-5">
+          <div className=" my-4 flex items-center justify-between border-b-1 border-b-neutral-300 py-5">
             <h1 className="text-2xl font-semibold text-[#4b5563]">
               Your <span className="text-pink-700">Cart</span>
             </h1>
@@ -65,23 +66,23 @@ const Cart = () => {
 
           {/* Product Order List */}
           <div>
-            <table className="text-surface min-w-full overflow-hidden text-left text-sm font-light">
-              <thead className="font-medium text-[#4b5563]">
+            <table className="text-surface min-w-full overflow-hidden text-left lg:text-sm text-xs font-light">
+              <thead className="lg:font-medium font-normal text-[#4b5563]">
                 <tr>
-                  <th scope="col" className="px-6 py-4">
+                  <th scope="col" className="lg:py-4">
                     Product Detail
                   </th>
-                  <th scope="col" className="px-6 py-4">
+                  <th scope="col" className="lg:px-6 lg:py-4">
                     Price
                   </th>
 
-                  <th scope="col" className="px-6 py-4">
+                  <th scope="col" className="lg:px-6 lg:py-4">
                     Quantity
                   </th>
-                  <th scope="col" className="px-6 py-4">
+                  <th scope="col" className="lg:px-6 lg:py-4">
                     Subtotal
                   </th>
-                  <th scope="col" className="px-6 py-4">
+                  <th scope="col" className="lg:px-6 lg:py-4">
                     Remove
                   </th>
                 </tr>
@@ -93,7 +94,7 @@ const Cart = () => {
           </div>
         </div>
 
-        <div className="sticky top-20 col-span-1 mt-16 h-96 rounded-md bg-gray-100  p-6">
+        <div className="sticky top-20  lg:w-1/3 mt-16 h-96 rounded-md bg-gray-100  p-6  sm:w-full">
           <h1 className="flex items-center gap-2 border-b-1 border-b-neutral-300 pb-5 text-2xl font-semibold text-[#4b5563]">
             <HiShoppingBag size={30} /> Order Summary
           </h1>

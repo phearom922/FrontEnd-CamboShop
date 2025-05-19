@@ -54,9 +54,9 @@ const ProductTableCart = ({ item }) => {
   return (
     <tbody>
       <tr className="border-neutral-2 text-[#4b5563]">
-        <td className="flex items-center gap-2 px-6 py-3 font-medium whitespace-nowrap">
+        <td className="flex gap-2 lg:gap-2  py-3 font-normal lg:font-medium whitespace-nowrap">
           <Link to={"/product-detail/" + item._id}>
-            <div className="h-14 w-14 rounded-md bg-gray-100">
+            <div className=" lg:h-14 lg:w-14 w-10 h-10 rounded-md bg-gray-100">
               <img
                 src={item.images[0]?.url}
                 alt=""
@@ -65,7 +65,7 @@ const ProductTableCart = ({ item }) => {
             </div>
           </Link>
 
-          <div className="text-sm">
+          <div className="lg:text-sm text-[12px]">
             {item.title} <br />
             <span className="text-xs text-gray-400">
               {item.productCode}
@@ -80,28 +80,23 @@ const ProductTableCart = ({ item }) => {
           </div>
         </td>
 
-        <td className="px-6 py-3 text-[16px] font-medium whitespace-nowrap">
+        <td className="lg:px-6 py-3 lg:text-[16px] text-[13px]  font-medium whitespace-nowrap">
           $
           {item.discount
             ? (item.price - (item.price * item.discount) / 100).toFixed(2)
             : item.price.toFixed(2)}
         </td>
 
-        <td className="items-center gap-1 px-6 py-3 text-[16px] font-medium">
+        <td className="items-center gap-1 lg:px-6 py-3 lg:text-[16px] text-[13px]  font-medium">
           <input
             onChange={handleChangeCount}
             value={item.count}
             type="number"
             className="w-12 rounded border border-gray-300 py-2 pl-3 text-center"
           />
-          {/* <div className="flex items-center gap-1">
-            <FaCircleMinus  className=" cursor-pointer" />
-            
-            <FaCirclePlus onClick={handlePlus} className=" cursor-pointer"/>
-          </div> */}
         </td>
 
-        <td className="px-6 py-3 text-[16px] font-medium whitespace-nowrap">
+        <td className="lg:px-6 py-3 lg:text-[16px] text-[13px]  font-medium whitespace-nowrap">
           $
           {item.discount
             ? (
@@ -110,7 +105,7 @@ const ProductTableCart = ({ item }) => {
               ).toFixed(2)
             : (item.count * item.price).toFixed(2)}
         </td>
-        <td className="gap-2 px-6 whitespace-nowrap">
+        <td className="gap-2 lg:px-6 whitespace-nowrap">
           <svg
             onClick={handleRemoveCart}
             xmlns="http://www.w3.org/2000/svg"
