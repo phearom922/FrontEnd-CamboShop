@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="w-full mt-10  bg-gray-50 pt-16 pb-8">
+    <footer className="max-w-7xl mt-10  bg-gray-50 mx-4 pt-10 pb-8 rounded-2xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo and social media section */}

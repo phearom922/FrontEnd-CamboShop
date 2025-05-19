@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
     <div className="group relative flex flex-col items-center justify-center space-y-2 rounded-xl bg-gray-100 p-4 shadow-sm hover:shadow-blue-200">
       <Link to={"/product-detail/" + _id}>
         {images?.length > 0 && images[0]?.url ? (
-          <div className="flex h-45 w-45 cursor-pointer items-center justify-center">
+          <div className="flex lg:h-45 lg:w-45 cursor-pointer items-center justify-center">
             <img
               className="h-full transform object-cover transition-all duration-200 group-hover:scale-105"
               src={images[0].url}
@@ -87,10 +87,10 @@ const ProductCard = ({ product }) => {
         </div>
 
         <div className="flex items-center justify-between">
-          <h1 className="font-medium text-gray-600">
+          <div className=" font-medium text-gray-600 ">
             {discount ? (
-              <div className="flex flex-col">
-                <div className="flex items-center justify-center space-x-2">
+              <div className="flex flex-col ">
+                <div className="flex items-center lg:justify-center space-x-2">
                   <span className="text-xs text-pink-700 line-through">
                     {price.toFixed(2)} usd
                   </span>
@@ -103,19 +103,16 @@ const ProductCard = ({ product }) => {
             ) : (
               <span>{price.toFixed(2)} usd</span>
             )}
-          </h1>
+          </div>
           <button
             onClick={handleAddToCart}
             id="button"
-            className="relative cursor-pointer rounded-md bg-indigo-700 px-3 py-2 text-sm font-semibold text-white"
+            className="relative flex items-center justify-center gap-2 cursor-pointer rounded-md bg-indigo-700 px-3 py-2 text-sm font-semibold text-white"
           >
             <FiShoppingCart className="text-2xl" />
           </button>
         </div>
       </div>
-      {/* <div className="text-md absolute top-1.5 left-1.5 rounded-[6px] bg-pink-600 px-2 py-1 text-white">
-          New
-        </div> */}
     </div>
   );
 };

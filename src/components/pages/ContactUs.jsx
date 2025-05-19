@@ -12,7 +12,7 @@ const ContactUs = () => {
 
   return (
     <div>
-      <div className="mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center bg-white px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="flex max-w-7xl items-center justify-center">
           <div className="grid items-center gap-8 md:grid-cols-2">
             {/* Left side content */}
