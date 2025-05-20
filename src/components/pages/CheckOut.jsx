@@ -244,11 +244,11 @@ const CheckOut = () => {
         <div
           className={
             showFormAddress
-              ? "absolute inline-flex h-screen w-full items-center justify-center px-4"
+              ? "absolute inline-flex h-screen items-center w-7xl justify-center px-4"
               : "hidden"
           }
         >
-          <form className="absolute z-50 rounded bg-white p-10">
+          <form className="absolute z-50 rounded-xl bg-white p-10 shadow-2xl border border-gray-200">
             <p className="text-2xl text-gray-500 md:text-3xl">
               Add <span className="font-semibold text-pink-700">Shipping Address</span>
             </p>
@@ -343,7 +343,7 @@ const CheckOut = () => {
               </button>
             </div>
           </form>
-          <div className="absolute z-40 mx-auto flex h-screen w-full items-center justify-center overflow-hidden bg-black opacity-85"></div>
+          <div className="absolute z-40 mx-auto flex h-screen w-full items-center justify-center overflow-hidden bg-white opacity-85"></div>
         </div>
       </div>
 

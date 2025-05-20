@@ -69,14 +69,14 @@ const CreateProduct = () => {
 
 
   return (
-    <div className="flex w-full">
+    <div className="flex">
       <div className="fixed z-20 my-14">
         <SideBarAdmin />
       </div>
       {/* content in sidebar */}
 
       <div className="relative my-14 pl-72">
-        <form>
+        <form >
           <div className="mx-5">
             <h1 className="py-4 text-xl font-bold text-gray-700">
               Create Product

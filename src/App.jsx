@@ -83,7 +83,9 @@ function App() {
   }, [dispatch, isInitialLoad]);
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center"><Loading /></div>;
+    return <div className="flex justify-center items-center h-[70vh]">
+      <div className="animate-spin rounded-full h-20 w-20 border-4 border-t-blue-700 border-gray-200"></div>
+    </div>
   }
 
   return (

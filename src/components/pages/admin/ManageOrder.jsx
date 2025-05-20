@@ -141,7 +141,7 @@ const ManageOrder = () => {
   );
 
   return (
-    <div className="flex w-full">
+    <div className="flex min-w-7xl">
       <div className="fixed my-14">
         <SideBarAdmin />
       </div>

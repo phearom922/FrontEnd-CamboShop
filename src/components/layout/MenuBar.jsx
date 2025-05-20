@@ -10,6 +10,7 @@ import { IoCartOutline } from "react-icons/io5";
 import UserDropdown from "./UserDropdown";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserProfile } from "../functions/users";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 const MenuBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,8 +80,8 @@ const MenuBar = () => {
                 <IoCartOutline size={20} />
               </Badge>
             </Link>
-            <Search isOpen={isOpen}/>
-            {!user?.token ? (
+            <Search isOpen={isOpen} />
+            {!user?.username ? (
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
@@ -96,23 +97,26 @@ const MenuBar = () => {
                 </Link>
               </div>
             ) : user?.role === "admin" ? (
-              <div className="group relative flex items-center cursor-pointer rounded px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 transition-all duration-300">
+              <div className="group relative flex items-center cursor-pointer rounded-md px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 transition-all duration-300">
                 <img
                   src={user?.profilePicture || "https://avatar.iran.liara.run/public"}
                   alt="Profile"
                   className="w-6 h-6 sm:w-8 sm:h-8 rounded-full object-cover mr-1"
                 />
-                <span className="text-sm">{user.username}</span>
-                <IoMdArrowDropdown />
-                <div className="absolute top-full right-0 mt-2 w-48 rounded-md border border-gray-100 bg-white shadow-xl hidden group-hover:block">
+                <span className="text-sm sm:text-base">{user.username}</span>
+                <IoMdArrowDropdown className="ml-1" />
+
+                <div className="absolute top-full right-0 w-40 mt-2 sm:w-48 rounded-md border border-gray-100 bg-white shadow-xl hidden group-hover:block z-50">
+                  {/* Pseudo-element เพื่อเติม gap */}
+                  <div className="absolute -top-2 left-0 w-full h-2 bg-transparent" />
                   <Link to="/admin/index">
-                    <div className="text-sm text-center rounded-md hover:bg-indigo-100 hover:text-indigo-600 m-2 py-2">
+                    <div className="text-sm sm:text-base text-center rounded-md hover:bg-indigo-100 hover:text-indigo-600 mx-2 my-2 py-2">
                       My Dashboard
                     </div>
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex w-full items-center justify-center gap-2 border-t border-gray-300 py-3 text-sm hover:bg-gray-100"
+                    className="flex w-full items-center justify-center gap-2 border-t border-gray-300 py-3 text-sm sm:text-base hover:bg-gray-100"
                   >
                     <LogOut className="w-4 h-4" /> Logout
                   </button>
@@ -158,7 +162,7 @@ const MenuBar = () => {
                 </Badge>
                 Cart
               </Link>
-              
+
               {!user?.token ? (
                 <div className="flex flex-col gap-2 mb-4">
                   <Link

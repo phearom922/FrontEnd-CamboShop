@@ -46,7 +46,7 @@ const OrdersDashboard = ({ orders }) => {
         .slice(0, 5);
 
     return (
-        <div className="p-6">
+        <div className="p-6 ">
             {/* ส่วนหัว Dashboard */}
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-800">Orders Dashboard</h1>
@@ -54,7 +54,7 @@ const OrdersDashboard = ({ orders }) => {
             </div>
 
             {/* สถิติแบบ Card */}
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4 mb-8">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-4 mb-8 ">
                 {/* Card 1: Total Orders */}
                 <div className="rounded-lg bg-green-100 p-6 shadow">
                     <div className="flex items-center justify-between">

@@ -53,7 +53,7 @@ const Cart = () => {
     <div className="flex h-screen flex-col max-w-7xl">
 
       <div className="mx-auto flex flex-col w-full gap-5 px-4 sm:px-6 lg:px-6   sm:flex-col lg:flex-row">
-        <div className="lg:w-2/3 mt-13  sm:w-full">
+        <div className="lg:w-2/3 mt-8  sm:w-full">
           {/* Title Your Card */}
           <div className=" my-4 flex items-center justify-between border-b-1 border-b-neutral-300 py-5">
             <h1 className="text-2xl font-semibold text-[#4b5563]">

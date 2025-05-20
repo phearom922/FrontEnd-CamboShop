@@ -5,7 +5,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { LogOut } from "lucide-react";
 
 const UserDropdown = ({ user, logout, mobile, toggleMenu, isOpen }) => {
-  const profilePicture = user?.profilePicture || "https://avatar.iran.liara.run/public";
+  const profilePicture = user?.profilePicture;
 
   if (mobile) {
     return (
@@ -41,7 +41,6 @@ const UserDropdown = ({ user, logout, mobile, toggleMenu, isOpen }) => {
 
   return (
     <div className="group relative flex items-center cursor-pointer rounded-md px-3 py-2 font-medium text-gray-700 hover:bg-gray-100 transition-all duration-300">
-
       <img
         src={profilePicture}
         alt="Profile"
